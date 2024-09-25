@@ -7,8 +7,9 @@ use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\StoreUserRequest;
+use App\Interfaces\AuthInterface;
 
-class AuthController extends ApiController
+class AuthController extends ApiController implements AuthInterface
 {
     public function __construct(protected AuthService $service)
     { }
@@ -17,8 +18,7 @@ class AuthController extends ApiController
     {
         $user = $this->service->createUser($request);
 
-        $token = $user->createToken('ApiToken');
-        $user->plainTextToken = $token->plainTextToken;
+        $user->apiToken = $this->service->createToken($user);
 
         return $user;
     }

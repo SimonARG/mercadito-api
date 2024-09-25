@@ -17,4 +17,12 @@ class AuthService
 
         return $user;
     }
+
+    public function createToken(object $user): string
+    {
+        $token = $user->createToken('apiToken');
+        $plainTextToken = $token->plainTextToken;
+
+        return $plainTextToken;
+    }
 }

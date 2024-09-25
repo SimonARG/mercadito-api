@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Controllers\Api\ApiController;
@@ -16,6 +15,6 @@ class UserController extends ApiController
     {
         $user = $this->authController->register($request);
 
-        return $this->successResponse($user, "User $request->name registered succesfully");
+        return $this->createdResponse($user, "User $request->name registered succesfully");
     }
 }
