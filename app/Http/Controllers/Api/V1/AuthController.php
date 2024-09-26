@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Services\AuthService;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Api\ApiController;
-use App\Http\Requests\StoreUserRequest;
 use App\Interfaces\AuthInterface;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Controllers\Api\ApiController;
 
 class AuthController extends ApiController implements AuthInterface
 {

@@ -29,59 +29,49 @@ class UserTest extends TestCase
                         ->whereType('data.created_at', 'string')
                         ->whereType('data.updated_at', 'string')
                         ->whereType('data.apiToken', 'string')
-                        ->where('message', 'User tester99 registered succesfully')
+                        ->where('message', 'User tester99 registered successfully')
             );
     }
 
-    public function test_user_creation_with_invalid_name_returns_a_validation_error_response(): void
+    public function test_user_creation_with_missing_fields_returns_a_validation_error_response()
     {
-        $response = $this->JSON('POST', '/api/v1/users', [
-            'name' => 'aa',
-            'email' => 'tester99@gmail.com',
-            'password' => 'TestPassword.99',
-            'password_confirmation' => 'TestPassword.99'
-        ]);
+        $missingFields = [
+            ['name' => ''],
+            ['email' => ''],
+            ['password' => ''],
+            ['password_confirmation' => ''],
+        ];
 
-        $response
-            ->assertStatus(422);
+        foreach ($missingFields as $missingField) {
+            $data = array_merge([
+                'name' => 'tester99',
+                'email' => 'tester99@gmail.com',
+                'password' => 'TestPassword.99',
+            ], $missingField);
+
+            $response = $this->JSON('POST', '/api/v1/users', $data);
+            $response->assertStatus(422);
+        }
     }
 
-    public function test_user_creation_with_invalid_email_returns_a_validation_error_response(): void
+    public function test_user_creation_with_invalid_fields_returns_a_validation_error_response()
     {
-        $response = $this->JSON('POST', '/api/v1/users', [
-            'name' => 'tester99',
-            'email' => 'tester99.com',
-            'password' => 'TestPassword.99',
-            'password_confirmation' => 'TestPassword.99'
-        ]);
+        $invalidFields = [
+            ['name' => 'test'],
+            ['email' => 'testergmail.com'],
+            ['password' => 'Invalid99'],
+            ['password_confirmation' => 'Inval'],
+        ];
 
-        $response
-            ->assertStatus(422);
-    }
+        foreach ($invalidFields as $invalidField) {
+            $data = array_merge([
+                'name' => 'tester99',
+                'email' => 'tester99@gmail.com',
+                'password' => 'TestPassword.99',
+            ], $invalidField);
 
-    public function test_user_creation_with_invalid_password_returns_a_validation_error_response(): void
-    {
-        $response = $this->JSON('POST', '/api/v1/users', [
-            'name' => 'tester99',
-            'email' => 'tester99.com',
-            'password' => 'TestPassword',
-            'password_confirmation' => 'TestPassword.99'
-        ]);
-
-        $response
-            ->assertStatus(422);
-    }
-
-    public function test_user_creation_without_password_confirmation_returns_a_validation_error_response(): void
-    {
-        $response = $this->JSON('POST', '/api/v1/users', [
-            'name' => 'tester99',
-            'email' => 'tester99.com',
-            'password' => 'TestPassword',
-            'password_confirmation' => 'Test'
-        ]);
-
-        $response
-            ->assertStatus(422);
+            $response = $this->JSON('POST', '/api/v1/users', $data);
+            $response->assertStatus(422);
+        }
     }
 }
