@@ -8,7 +8,7 @@ use App\Http\Requests\StoreUserRequest;
 
 interface AuthInterface
 {
-    public function register(StoreUserRequest $request): object;
+    public function register(Request $request): object;
 
     public function login(Request $request): JsonResponse;
 

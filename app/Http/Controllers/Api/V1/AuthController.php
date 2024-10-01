@@ -14,7 +14,7 @@ class AuthController extends ApiController implements AuthInterface
     public function __construct(protected AuthService $service)
     { }
 
-    public function register(StoreUserRequest $request): object
+    public function register(Request $request): object
     {
         $user = $this->service->createUser($request);
 
