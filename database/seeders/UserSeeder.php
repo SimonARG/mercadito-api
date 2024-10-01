@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'name' => 'superadmin',
             'email' => 'test@example.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('58dZ,JPM[o1Mh-mP'),
+            'password' => Hash::make(env('SUPER-ADMIN_PASS')),
             'remember_token' => Str::random(10),
         ]);
 

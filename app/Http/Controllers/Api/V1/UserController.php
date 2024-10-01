@@ -15,9 +15,7 @@ class UserController extends ApiController implements ResourceInterface
         private AuthController $authController,
         public UserService $service
         )
-    {
-
-    }
+    {}
 
     public function store(StoreUserRequest $request): JsonResponse
     {
