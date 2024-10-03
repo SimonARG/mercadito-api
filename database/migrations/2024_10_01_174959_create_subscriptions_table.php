@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('sell_tokens_remaining');
             $table->integer('months');
             $table->timestamps();
-            $table->timestamp('refresh_tokens_at');
             $table->softDeletes();
         });
     }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function createUser(object $data): object
+    public function assignRole(object $data): object
     {
         $user = User::create([
             'name' => $data->name,

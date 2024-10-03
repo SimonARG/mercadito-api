@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('monthly_buy_tokens');
             $table->integer('monthly_sell_tokens');
         });
